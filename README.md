@@ -3,7 +3,7 @@ Hotel Automation Web Page
 
 >Note: for internal use.
 >
->link: --------- placeholder ------------
+>link: https://tech-challenge-2023.herokuapp.com/
 >
 >Heroku account: `mihai.pricob@yahoo.com`
 ## Note utile despre cum sa folosim git:
