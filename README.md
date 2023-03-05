@@ -81,7 +81,7 @@
 ---
 `PATCH https://api-user-forms.herokuapp.com/v1/users/<id>`
 > ##### update a user's data, you only need to type the fields you want to update
-- example `PATCH http://localhost:3000/v1/users/64046952d2cc374748b0fb29`:
+- example `PATCH https://api-user-forms.herokuapp.com/v1/users/64046952d2cc374748b0fb29`:
 ```json
 //json request
 {
