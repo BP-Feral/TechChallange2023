@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const express = require('express')
+const port = process.env.PORT || 3000
 const app = express()
 const mongoose = require('mongoose')
 
@@ -14,4 +15,8 @@ app.use(express.json())
 const usersRouter = require('./routes/users')
 app.use('/v1/users', usersRouter)
 
-app.listen(3000, () => console.log('Server Started'))
+app.get("/", (req, res) => {
+    res.send("API is active!")
+});
+
+app.listen(port, () => console.log('Server Started on localhost:' + port))
