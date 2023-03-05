@@ -13,7 +13,7 @@
 //json request
 {
   "name": " enter name here ",           // required - string
-  "password": " enter password here ",   // required - string 
+  "password": " enter password here ",   // required - string
   "email": " email@example.com ",        // required - string
   "address": " enter address here ",     // required - string
   "fiscal_code": " defaults to 0 "       // optional - number
@@ -124,7 +124,7 @@
 		"address": "personal address",
 		"fiscal_code": 0,
 		"__v": 0
-	},        // Second user Mihai was removed        
+	},        // Second user Mihai was removed
 	{
 		"_id": "64046952d2cc374748b0fb29",
 		"name": "Andreea",
