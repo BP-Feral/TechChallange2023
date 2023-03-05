@@ -1,63 +1,138 @@
-# TechChallenge
-Automatic Form Filler Web Page
+### Endpoints
 
->Note: for internal use.
->
->link: https://tech-challenge-2023.herokuapp.com/
->
->Heroku account: `mihai.pricob@yahoo.com`
-## Note utile despre cum sa folosim git:
-1. va descarcati git bash pe pc.
-2. in folderul unde veti lucra executati urmatoarea comanda:
-```
-git clone ssh key
-```
+>` http://localhost:3000/v1/users/`
 
-unde in loc de `ssh key` trebuie sa puneti cheia ssh pe care o preluati de pe github.
+>` http://localhost:3000/v1/users/<id>`
+---
+### Methods 
 
-3. inainte de a incepe sa lucrati la branch-ul vostru, trebuie sa va asigurati ca el se afla la acelasi nivel cu branch-ul master.
+`POST http://localhost:3000/v1/users/`
+> ###### takes a user object and insert it into the database
+> ###### this is the structure of the json object
+```json
+//json request
+{
+  "name": " enter name here ",           // required - string
+  "password": " enter password here ",   // required - string 
+  "email": " email@example.com ",        // required - string
+  "address": " enter address here ",     // required - string
+  "fiscal_code": " defaults to 0 "       // optional - number
+}
 ```
-git fetch -p
-git checkout master
-git pull
+---
+`GET http://localhost:3000/v1/users/`
+> ###### returns a complete list of all users objects from the database
+ - empty list example:  
+ ```json
+// json response
+[]
+ ```
 
-git checkout your_branch_name
-git rebase master
+ - users in list example:
+```json
+//json response
+[
+	{
+		"_id": "6404692ed2cc374748b0fb23",
+		"name": "Stefan",
+		"password": "mypass12",
+		"email": "stefan@yahoo.com",
+		"address": "personal address",
+		"fiscal_code": 0,
+		"__v": 0
+	},
+	{
+		"_id": "64046940d2cc374748b0fb27",
+		"name": "Mihai",
+		"password": "cookie",
+		"email": "mihai@yahoo.com",
+		"address": "personal address 2",
+		"fiscal_code": 0,
+		"__v": 0
+	},
+	{
+		"_id": "64046952d2cc374748b0fb29",
+		"name": "Andreea",
+		"password": "flower pot",
+		"email": "andreea@gmail.com",
+		"address": "personal address 3",
+		"fiscal_code": 0,
+		"__v": 0
+	}
+]
 ```
+---
+`GET http://localhost:3000/v1/users/<id>`
+> ###### replace `<id>` with the user id and it will return all of the user's data
 
-4. Voi incerca sa deschid issues pentru toate task-urile pe care le-ati mentionat in `ImplementationPlan->Work Breakdown`.
-5. Atunci cand implementati un task, adaugati label `Code` si creati un branch personal cu numele vostru + nr issue, spre exemplu: `mihai_10`
-```
-git checkout -b mihai_10
-```
+- example `GET http://localhost:3000/v1/users/64046952d2cc374748b0fb29` returns:
 
-6. Pentru a vedea ce fisiere ati modificat pe branch-ul pe care sunteti:
+```json
+//json response
+{
+    "_id": "64046952d2cc374748b0fb29",
+    "name": "Andreea",
+    "password": "flower pot",
+    "email": "andreea@gmail.com",
+    "address": "personal address 3",
+    "fiscal_code": 0,
+    "__v": 0
+}
 ```
-git status
+---
+`PATCH http://localhost:3000/v1/users/<id>`
+> ##### update a user's data, you only need to type the fields you want to update
+- example `PATCH http://localhost:3000/v1/users/64046952d2cc374748b0fb29`:
+```json
+//json request
+{
+    "password": "new flower pot",
+    "email": "newmail@gmail.com"
+}
 ```
-7. Pentru a adauga fisiere pe git:
+> ##### This will change the password and email with the new fields
+
+`GET http://localhost:3000/v1/users/64046952d2cc374748b0fb29`:
+```json
+//json response
+{
+    "_id": "64046952d2cc374748b0fb29",
+    "name": "Andreea",
+    "password": "new flower pot",      // changed
+    "email": "newmail@gmail.com",      // changed
+    "address": "personal address 3",
+    "fiscal_code": 0,
+    "__v": 0
+}
 ```
-git add nume_fisier
+---
+`DELETE http://localhost:3000/v1/users/<id>`
 
-sau
+> ##### remove a user completely from database
 
-git add -u // pentru a adauga toate fisierele
+- example `DELETE http://localhost:3000/v1/users/64046940d2cc374748b0fb27`:
+> ##### this will remove the user with id `64046940d2cc374748b0fb27` in our case Mihai
+`GET http://localhost:3000/v1/users/` will return this now:
+```json
+//json response
+[
+	{
+		"_id": "6404692ed2cc374748b0fb23",
+		"name": "Stefan",
+		"password": "mypass12",
+		"email": "stefan@yahoo.com",
+		"address": "personal address",
+		"fiscal_code": 0,
+		"__v": 0
+	},        // Second user Mihai was removed        
+	{
+		"_id": "64046952d2cc374748b0fb29",
+		"name": "Andreea",
+		"password": "flower pot",
+		"email": "andreea@gmail.com",
+		"address": "personal address 3",
+		"fiscal_code": 0,
+		"__v": 0
+	}
+]
 ```
-
-8. Pentru a adauga un commit:
-```
-git commit -m "mesajul comitului"
-```
-
-as vrea ca mesajul comitului sa fie ceva de genul: `[nr_issue][Add/Change/Fix] ce anume ati implementat in general`
-
-spre exemplu: `"[10][Add] login backend implementation."`
-
-9. Ca sa incarcati modificarile voatre pe git:
-```
-git push origin nume_branch -p
-```
-
-10. Daca ati terminat task-ul adaugati label `CodeReview` si anuntati in chat ca sa se uite cineva peste el (in special la front-end va puteti face code review unul altuia).
-
-11. Dupa ce se va face code review voi integra branch-ul vostru in master.
